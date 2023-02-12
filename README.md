@@ -8,4 +8,4 @@
 
 **Получить доступ**
 
-[Ссылка на сайт](https://sergeyganus.github.io/russian-travel/)
+[Ссылка на сайт](https://sergeyganus.github.io/mesto/)
