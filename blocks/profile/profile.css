@@ -1,0 +1,40 @@
+.profile {
+  box-sizing: border-box;
+  margin: 0 auto;
+  padding: 40px 200px 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1280px;
+  min-height: 120px;
+}
+
+@media screen and (max-width: 1100px) {
+  .profile {
+    padding: 40px 100px 50px;
+    max-width: 1024px;
+  }
+}
+
+@media screen and (max-width: 870px) {
+  .profile {
+    padding: 40px 50px 50px;
+    max-width: 768px;
+    flex-direction: column;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .profile {
+    padding: 40px 19px 50px;
+    max-width: 480px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .profile {
+    padding: 42px 19px 36px;
+    max-width: 320px;
+    flex-direction: column;
+  }
+}

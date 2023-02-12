@@ -1,0 +1,10 @@
+/* Класс для микса */
+.form__profile-item {
+  padding: 0 0 10px;
+  width: 100%;
+  font-size: 14px;
+  line-height: 17px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-width: 0 0 1px 0;
+  outline: none;
+}

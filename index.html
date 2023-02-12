@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Место</title>
+    <link rel="stylesheet" href="./pages/index.css">
+  </head>
+  <body>
+    <!-- Главная обёртка - Page -->
+    <div class="page">
+      <!-- Шапка сайта- Header -->
+      <header class="header">
+        <img class="logo" src="./images/logo.svg" alt="Логотип проекта &quot;Место&quot;" title="Логотип проекта &quot;Место&quot;">
+        <div class="header__separator"></div>
+      </header>
+      <!-- Основной блок - Main -->
+      <main class="main">
+        <!-- Секция с профилем пользователя - Profile -->
+        <section class="profile">
+          <div class="profile__details">
+            <img class="profile__photo" src="./images/profile-photo.png" alt="Фото профиля" title="Фото профиля">
+            <div class="profile__info">
+              <h1 class="profile__name">Жак-Ив Кусто</h1>
+              <button class="profile__edit-button"></button>
+              <p class="profile__description">Исследователь океана</p>
+            </div>
+          </div>
+          <button class="profile__add-button"></button>
+        </section>
+        <!-- Секция с элементами галереи красивых мест - Places -->
+        <section class="places">
+          <ul class="places__list">
+            <li class="place">
+              <img class="place__image" src="./images/places/places-karachaevsk.jpg" alt="Фото Карачаевска" title="Фото Карачаевска">
+              <div class="place__description">
+                <h2 class="place__title">Карачаевск</h2>
+                <button class="place__favorite-button"></button>
+              </div>
+            </li>
+            <li class="place">
+              <img class="place__image" src="./images/places/places-elbrus.jpg" alt="Фото горы Эльбрус" title="Фото горы Эльбрус">
+              <div class="place__description">
+                <h2 class="place__title">Гора Эльбрус</h2>
+                <button class="place__favorite-button"></button>
+              </div>
+            </li>
+            <li class="place">
+              <img class="place__image" src="./images/places/places-dombay.png" alt="Фото куророта Домбай" title="Фото куророта Домбай">
+              <div class="place__description">
+                <h2 class="place__title">Домбай </h2>
+                <button class="place__favorite-button"></button>
+              </div>
+            </li>
+            <li class="place">
+              <img class="place__image" src="./images/places/places-elbrus.jpg" alt="Фото горы Эльбрус" title="Фото горы Эльбрус">
+              <div class="place__description">
+                <h2 class="place__title">Гора Эльбрус</h2>
+                <button class="place__favorite-button"></button>
+              </div>
+            </li>
+            <li class="place">
+              <img class="place__image" src="./images/places/places-dombay.png" alt="Фото куророта Домбай" title="Фото куророта Домбай">
+              <div class="place__description">
+                <h2 class="place__title">Домбай </h2>
+                <button class="place__favorite-button"></button>
+              </div>
+            </li>
+            <li class="place">
+              <img class="place__image" src="./images/places/places-karachaevsk.jpg" alt="Фото Карачаевска" title="Фото Карачаевска">
+              <div class="place__description">
+                <h2 class="place__title">Карачаево-Черкессия</h2>
+                <button class="place__favorite-button"></button>
+              </div>
+            </li>
+          </ul>
+        </section>
+      </main>
+      <!-- Модальное окно - Popup -->
+      <div class="popup">
+        <div class="popup__container">
+          <h2 class="popup__title">Редактировать профиль</h2>
+          <button class="popup__close-button"></button>
+          <form class="form" method="post">
+            <fieldset class="form__profile-info">
+              <input class="form__profile-name form__profile-item" name="profile-name" type="text" required>
+              <input class="form__profile-description form__profile-item" name="profile-description" type="text" required>
+            </fieldset>
+            <button class="form__save-button" type="submit">Сохранить</button>
+          </form>
+        </div>
+      </div>
+      <!-- Подвал сайта - Footer -->
+      <footer class="footer">
+        <p class="footer__copyright">&copy; 2023 Mesto Russia</p>
+      </footer>
+
+      <!-- Подключение основного скрипта -->
+      <script src="./scripts/script.js"></script>
+    </div>
+  </body>
+</html>

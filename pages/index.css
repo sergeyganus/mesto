@@ -1,0 +1,53 @@
+/* Подключение Normalize.css */
+@import url(../vendor/styles/normalize.css);
+
+/* Подключение шрифтов */
+@import url(../vendor/fonts/fonts.css);
+
+/* Подключение основных блоков, элементов и модификаторов */
+
+/* Стили основного контейнера - Page */
+@import url(../blocks/page/page.css);
+
+/* Стили шапки страницы - Header */
+@import url(../blocks/header/header.css);
+@import url(../blocks/header/__separator/header__separator.css);
+
+/* Стили логотипа страницы - Logo */
+@import url(../blocks/logo/logo.css);
+
+/* Стили профиля пользователя - Profile */
+@import url(../blocks/profile/profile.css);
+@import url(../blocks/profile/__details/profile__details.css);
+@import url(../blocks/profile/__photo/profile__photo.css);
+@import url(../blocks/profile/__info/profile__info.css);
+@import url(../blocks/profile/__name/profile__name.css);
+@import url(../blocks/profile/__edit-button/profile__edit-button.css);
+@import url(../blocks/profile/__description/profile__description.css);
+@import url(../blocks/profile/__add-button/profile__add-button.css);
+
+/* Стили галереи красивых мест - Places */
+@import url(../blocks/places/places.css);
+@import url(../blocks/places/__list/places__list.css);
+@import url(../blocks/place/place.css);
+@import url(../blocks/place/__image/place__image.css);
+@import url(../blocks/place/__description/place__description.css);
+@import url(../blocks/place/__title/place__title.css);
+@import url(../blocks/place/__favorite-button/place__favorite-button.css);
+
+/* Стили модального окна - Popup */
+@import url(../blocks/popup/popup.css);
+@import url(../blocks/popup/_opened/popup_opened.css);
+@import url(../blocks/popup/__container/popup__container.css);
+@import url(../blocks/popup/__title/popup__title.css);
+@import url(../blocks/popup/__close-button/popup__close-button.css);
+
+/* Стили формы - Form */
+@import url(../blocks/form/__profile-info/form__profile-info.css);
+@import url(../blocks/form/__profile-item/form__profile-item.css);
+@import url(../blocks/form/__profile-name/form__profile-name.css);
+@import url(../blocks/form/__save-button/form__save-button.css);
+
+/* Стили подвала сайта - Footer */
+@import url(../blocks/footer/footer.css);
+@import url(../blocks/footer/__copyright/footer__copyright.css);
