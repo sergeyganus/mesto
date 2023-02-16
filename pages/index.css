@@ -6,6 +6,9 @@
 
 /* Подключение основных блоков, элементов и модификаторов */
 
+/* Стили для тела документа - Body */
+@import url(../blocks/body/body.css);
+
 /* Стили основного контейнера - Page */
 @import url(../blocks/page/page.css);
 
@@ -34,6 +37,7 @@
 @import url(../blocks/place/__description/place__description.css);
 @import url(../blocks/place/__title/place__title.css);
 @import url(../blocks/place/__favorite-button/place__favorite-button.css);
+@import url(../blocks/place/__favorite-button/_active/place__favorite-button_active.css);
 
 /* Стили модального окна - Popup */
 @import url(../blocks/popup/popup.css);
@@ -43,9 +47,10 @@
 @import url(../blocks/popup/__close-button/popup__close-button.css);
 
 /* Стили формы - Form */
-@import url(../blocks/form/__profile-info/form__profile-info.css);
-@import url(../blocks/form/__profile-item/form__profile-item.css);
-@import url(../blocks/form/__profile-name/form__profile-name.css);
+@import url(../blocks/form/form.css);
+@import url(../blocks/form/__input/form__input.css);
+@import url(../blocks/form/__input/_type/form__input_type_name.css);
+@import url(../blocks/form/__input/_type/form__input_type_description.css);
 @import url(../blocks/form/__save-button/form__save-button.css);
 
 /* Стили подвала сайта - Footer */

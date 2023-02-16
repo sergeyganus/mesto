@@ -10,15 +10,11 @@ let closeButton = popup.querySelector('.popup__close-button');
 
 // Получение формы и её элементов
 let form = popup.querySelector('.form');
-let formProfileName = form.querySelector('.form__profile-name');;
-let formProfileDescription = form.querySelector('.form__profile-description');
+let formProfileName = form.querySelector('.form__input_type_name');;
+let formProfileDescription = form.querySelector('.form__input_type_description');
 
 // Обработчик открытия и закрытия модального окна
 function togglePopup() {
-  // Получение актуальных данных о профиле
-  profileName = profile.querySelector('.profile__name');
-  profileDescription = profile.querySelector('.profile__description');
-
   if (popup.classList.contains('popup_opened')) {
     formProfileName.value = '';
     formProfileDescription.value = '';
@@ -33,10 +29,6 @@ function togglePopup() {
 function saveForm(evt) {
   // Отмена стандартной отправки формы
   evt.preventDefault();
-
-  // Получение актульных данных формы
-  formProfileName = form.querySelector('.form__profile-name');
-  formProfileDescription = form.querySelector('.form__profile-description');
 
   // Запись актуальных значений в профиль
   profileName.textContent = formProfileName.value;

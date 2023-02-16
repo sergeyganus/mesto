@@ -3,6 +3,7 @@
   height: 50px;
   justify-self: flex-end;
   background: #000 url(../../../images/buttons/add-button.svg) no-repeat;
+  background-size: 22px 22px;
   background-position: center;
   border: 2px solid #fff;
   cursor: pointer;
@@ -21,5 +22,6 @@
 @media screen and (max-width: 320px) {
   .profile__add-button {
     width: 100%;
+    background-size: 16px 16px;
   }
 }

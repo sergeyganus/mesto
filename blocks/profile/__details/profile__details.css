@@ -9,10 +9,3 @@
     justify-content: center;
   }
 }
-
-@media screen and (max-width: 320px) {
-  .profile__details {
-    flex-direction: column;
-    justify-content: center;
-  }
-}

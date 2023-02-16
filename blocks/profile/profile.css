@@ -18,7 +18,8 @@
 
 @media screen and (max-width: 870px) {
   .profile {
-    padding: 40px 50px 50px;
+    padding-left: 50px;
+    padding-right: 50px;
     max-width: 768px;
     flex-direction: column;
   }
@@ -26,15 +27,16 @@
 
 @media screen and (max-width: 480px) {
   .profile {
-    padding: 40px 19px 50px;
+    padding-left: 19px;
+    padding-right: 19px;
     max-width: 480px;
   }
 }
 
 @media screen and (max-width: 320px) {
   .profile {
-    padding: 42px 19px 36px;
+    padding-top: 42px;
+    padding-bottom: 36px;
     max-width: 320px;
-    flex-direction: column;
   }
 }
