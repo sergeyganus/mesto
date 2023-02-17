@@ -14,7 +14,6 @@
 
 /* Стили шапки страницы - Header */
 @import url(../blocks/header/header.css);
-@import url(../blocks/header/__separator/header__separator.css);
 
 /* Стили логотипа страницы - Logo */
 @import url(../blocks/logo/logo.css);
