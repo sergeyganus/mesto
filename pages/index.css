@@ -33,6 +33,7 @@
 @import url(../blocks/places/__list/places__list.css);
 @import url(../blocks/place/place.css);
 @import url(../blocks/place/__image/place__image.css);
+@import url(../blocks/place/__delete-button/place__delete-button.css);
 @import url(../blocks/place/__description/place__description.css);
 @import url(../blocks/place/__title/place__title.css);
 @import url(../blocks/place/__favorite-button/place__favorite-button.css);
@@ -48,9 +49,19 @@
 /* Стили формы - Form */
 @import url(../blocks/form/form.css);
 @import url(../blocks/form/__input/form__input.css);
-@import url(../blocks/form/__input/_type/form__input_type_name.css);
-@import url(../blocks/form/__input/_type/form__input_type_description.css);
-@import url(../blocks/form/__save-button/form__save-button.css);
+@import url(../blocks/form/__input/_type/form__input_type_profile-name.css);
+@import url(../blocks/form/__input/_type/form__input_type_profile-description.css);
+@import url(../blocks/form/__input/_type/form__input_type_place-name.css);
+@import url(../blocks/form/__input/_type/form__input_type_place-link.css);
+@import url(../blocks/form/__button/form__button.css);
+
+/* Стили галереи */
+@import url(../blocks/gallery/gallery.css);
+@import url(../blocks/gallery/_opened/gallery_opened.css);
+@import url(../blocks/gallery/__container/gallery__container.css);
+@import url(../blocks/gallery/__close-button/gallery__close-button.css);
+@import url(../blocks/gallery/__image/gallery__image.css);
+@import url(../blocks/gallery/__title/gallery__title.css);
 
 /* Стили подвала сайта - Footer */
 @import url(../blocks/footer/footer.css);

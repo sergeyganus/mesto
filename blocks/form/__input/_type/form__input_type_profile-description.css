@@ -1,0 +1,9 @@
+.form__input_type_profile-description {
+  margin: 0 0 47px;
+}
+
+@media screen and (max-width: 320px) {
+  .form__input_type_profile-description {
+    margin-bottom: 44px;
+  }
+}

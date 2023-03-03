@@ -1,9 +1,9 @@
-.form__input_type_description {
+.form__input_type_place-link {
   margin: 0 0 47px;
 }
 
 @media screen and (max-width: 320px) {
-  .form__input_type_description {
+  .form__input_type_place-link {
     margin-bottom: 44px;
   }
 }

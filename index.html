@@ -30,61 +30,49 @@
         <!-- Секция с элементами галереи красивых мест - Places -->
         <section class="places">
           <ul class="places__list">
-            <li class="place">
-              <img class="place__image" src="./images/places/places-karachaevsk.jpg" alt="Фото Карачаевска" title="Фото Карачаевска">
-              <div class="place__description">
-                <h2 class="place__title">Карачаевск</h2>
-                <button class="place__favorite-button" type="button"></button>
-              </div>
-            </li>
-            <li class="place">
-              <img class="place__image" src="./images/places/places-elbrus.jpg" alt="Фото горы Эльбрус" title="Фото горы Эльбрус">
-              <div class="place__description">
-                <h2 class="place__title">Гора Эльбрус</h2>
-                <button class="place__favorite-button" type="button"></button>
-              </div>
-            </li>
-            <li class="place">
-              <img class="place__image" src="./images/places/places-dombay.png" alt="Фото куророта Домбай" title="Фото куророта Домбай">
-              <div class="place__description">
-                <h2 class="place__title">Домбай </h2>
-                <button class="place__favorite-button" type="button"></button>
-              </div>
-            </li>
-            <li class="place">
-              <img class="place__image" src="./images/places/places-elbrus.jpg" alt="Фото горы Эльбрус" title="Фото горы Эльбрус">
-              <div class="place__description">
-                <h2 class="place__title">Гора Эльбрус</h2>
-                <button class="place__favorite-button" type="button"></button>
-              </div>
-            </li>
-            <li class="place">
-              <img class="place__image" src="./images/places/places-dombay.png" alt="Фото куророта Домбай" title="Фото куророта Домбай">
-              <div class="place__description">
-                <h2 class="place__title">Домбай </h2>
-                <button class="place__favorite-button" type="button"></button>
-              </div>
-            </li>
-            <li class="place">
-              <img class="place__image" src="./images/places/places-karachaevsk.jpg" alt="Фото Карачаевска" title="Фото Карачаевска">
-              <div class="place__description">
-                <h2 class="place__title">Карачаево-Черкессия</h2>
-                <button class="place__favorite-button" type="button"></button>
-              </div>
-            </li>
+            <template id="place">
+              <li class="place">
+                <input class="place__id" type="hidden" name="placeId" value="">
+                <img class="place__image">
+                <button class="place__delete-button" type="button"></button>
+                <div class="place__description">
+                  <h2 class="place__title"></h2>
+                  <button class="place__favorite-button" type="button"></button>
+                </div>
+              </li>
+            </template>
           </ul>
         </section>
       </main>
-      <!-- Модальное окно - Popup -->
-      <div class="popup">
+      <!-- Модальное окно редактирования информации в профиле - Popup -->
+      <div class="popup popup_type_edit-profile">
         <div class="popup__container">
           <h2 class="popup__title">Редактировать профиль</h2>
           <button class="popup__close-button" type="button"></button>
           <form class="form" name="editform" method="post">
-            <input class="form__input form__input_type_name" name="profile-name" type="text" required>
-            <input class="form__input form__input_type_description" name="profile-description" type="text" required>
-            <button class="form__save-button" type="submit">Сохранить</button>
+            <input class="form__input form__input_type_profile-name" name="profile-name" type="text" required>
+            <input class="form__input form__input_type_profile-description" name="profile-description" type="text" required>
+            <button class="form__button form__button_type_save-profile" type="submit">Сохранить</button>
           </form>
+        </div>
+      </div>
+      <!-- Модальное окно добавления нового места - Popup -->
+      <div class="popup popup_type_add-place">
+        <div class="popup__container">
+          <h2 class="popup__title">Новое место</h2>
+          <button class="popup__close-button" type="button"></button>
+          <form class="form" name="addform" method="post">
+            <input class="form__input form__input_type_place-name" name="place-name" type="text" placeholder="Название" required>
+            <input class="form__input form__input_type_place-link" name="place-link" type="text" placeholder="Ссылка на картинку" required>
+            <button class="form__button form__button_type_add-place" type="submit">Создать</button>
+          </form>
+        </div>
+      </div>
+      <div class="gallery">
+        <div class="gallery__container">
+          <button class="gallery__close-button" type="button"></button>
+          <img class="gallery__image" src="#" alt="Фото места" title="Фото места">
+          <h2 class="gallery__title"></h2>
         </div>
       </div>
       <!-- Подвал сайта - Footer -->

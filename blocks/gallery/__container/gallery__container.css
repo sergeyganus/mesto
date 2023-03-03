@@ -1,0 +1,12 @@
+.gallery__container {
+  box-sizing: border-box;
+  position: relative;
+  max-width: 75vw;
+  max-height: 75vh;
+}
+
+@media screen and (max-width: 320px) {
+  .gallery__container {
+    max-width: 100%;
+  }
+}
