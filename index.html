@@ -30,20 +30,13 @@
         <!-- Секция с элементами галереи красивых мест - Places -->
         <section class="places">
           <ul class="places__list">
-            <template id="place">
-              <li class="place">
-                <input class="place__id" type="hidden" name="placeId" value="">
-                <img class="place__image">
-                <button class="place__delete-button" type="button"></button>
-                <div class="place__description">
-                  <h2 class="place__title"></h2>
-                  <button class="place__favorite-button" type="button"></button>
-                </div>
-              </li>
-            </template>
           </ul>
         </section>
       </main>
+      <!-- Подвал сайта - Footer -->
+      <footer class="footer">
+        <p class="footer__copyright">&copy; 2023 Mesto Russia</p>
+      </footer>
       <!-- Модальное окно редактирования информации в профиле - Popup -->
       <div class="popup popup_type_edit-profile">
         <div class="popup__container">
@@ -68,18 +61,25 @@
           </form>
         </div>
       </div>
-      <div class="gallery">
-        <div class="gallery__container">
-          <button class="gallery__close-button" type="button"></button>
-          <img class="gallery__image" src="#" alt="Фото места" title="Фото места">
-          <h2 class="gallery__title"></h2>
+      <!-- Модальное окно галереи - Gallery -->
+      <div class="popup popup_type_gallery">
+        <div class="popup__container popup__container_type_gallery">
+          <button class="popup__close-button" type="button"></button>
+          <img class="popup__image" src="#" alt="Фото места" title="Фото места">
+          <h2 class="popup__title popup__title_type_gallery"></h2>
         </div>
       </div>
-      <!-- Подвал сайта - Footer -->
-      <footer class="footer">
-        <p class="footer__copyright">&copy; 2023 Mesto Russia</p>
-      </footer>
     </div>
+    <template id="place">
+      <li class="place">
+        <img class="place__image">
+        <button class="place__delete-button" type="button"></button>
+        <div class="place__description">
+          <h2 class="place__title"></h2>
+          <button class="place__favorite-button" type="button"></button>
+        </div>
+      </li>
+    </template>
     <!-- Подключение основного скрипта -->
     <script src="./scripts/index.js"></script>
   </body>

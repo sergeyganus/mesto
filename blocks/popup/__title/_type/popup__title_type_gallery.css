@@ -1,4 +1,4 @@
-.gallery__title {
+.popup__title_type_gallery {
   position: absolute;
   bottom: -25px;
   left: 0;
@@ -6,4 +6,5 @@
   font-weight: 400;
   font-size: 12px;
   line-height: 15px;
+  color: #fff;
 }

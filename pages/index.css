@@ -41,9 +41,13 @@
 
 /* Стили модального окна - Popup */
 @import url(../blocks/popup/popup.css);
+@import url(../blocks/popup/_type/popup_type_gallery.css);
 @import url(../blocks/popup/_opened/popup_opened.css);
 @import url(../blocks/popup/__container/popup__container.css);
+@import url(../blocks/popup/__container/_type/popup__container_type_gallery.css);
 @import url(../blocks/popup/__title/popup__title.css);
+@import url(../blocks/popup/__title/_type/popup__title_type_gallery.css);
+@import url(../blocks/popup/__image/popup__image.css);
 @import url(../blocks/popup/__close-button/popup__close-button.css);
 
 /* Стили формы - Form */
@@ -54,14 +58,6 @@
 @import url(../blocks/form/__input/_type/form__input_type_place-name.css);
 @import url(../blocks/form/__input/_type/form__input_type_place-link.css);
 @import url(../blocks/form/__button/form__button.css);
-
-/* Стили галереи */
-@import url(../blocks/gallery/gallery.css);
-@import url(../blocks/gallery/_opened/gallery_opened.css);
-@import url(../blocks/gallery/__container/gallery__container.css);
-@import url(../blocks/gallery/__close-button/gallery__close-button.css);
-@import url(../blocks/gallery/__image/gallery__image.css);
-@import url(../blocks/gallery/__title/gallery__title.css);
 
 /* Стили подвала сайта - Footer */
 @import url(../blocks/footer/footer.css);
