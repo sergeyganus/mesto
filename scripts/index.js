@@ -68,7 +68,7 @@ function createPlace(place) {
 
   placeElem.querySelector('.place__favorite-button').addEventListener('click', togglePlaceLike);
   placeElem.querySelector('.place__delete-button').addEventListener('click', deletePlace);
-  placeImageElem.addEventListener('click', showGallery);
+  placeImageElem.addEventListener('click', openGalleryPopup);
 
   return placeElem;
 }
@@ -126,23 +126,26 @@ function clearFormPlaceData() {
   formPlaceLink.value = '';
 }
 
-
 // Обработчик открытия модального окна
 function openPopup(popup) {
-  if (popup.classList.contains('popup_type_edit-profile')) {
-    setFormProfileData();
-  }
-
   popup.classList.add('popup_opened');
 }
 
 // Обработчик закрытия модального окна
 function closePopup(popup) {
-  if (popup.classList.contains('popup_type_add-place')) {
-    clearFormPlaceData();
-  }
-
   popup.classList.remove('popup_opened');
+}
+
+// Обработчик открытия модального окна редактирования профиля
+function openEditProfilePopup() {
+  setFormProfileData();
+  openPopup(editProfilePopup);
+}
+
+// Обработчик закрытия модального окна добавления места
+function closeAddPlacePopup() {
+  clearFormPlaceData();
+  closePopup(addPlacePopup);
 }
 
 // Получение окна галереи
@@ -152,7 +155,7 @@ const galleryPopupImage = galleryPopup.querySelector('.popup__image');
 const galleryPopupTitle = galleryPopup.querySelector('.popup__title');
 
 // Обработчик открытия модального окна галереи
-function showGallery(evt) {
+function openGalleryPopup(evt) {
   const placeImageElem = evt.target;
 
   setGalleryPopupData(placeImageElem);
@@ -209,13 +212,13 @@ function deletePlace(evt) {
 }
 
 // Обработчики событий для редактирования профиля
-editProfileButton.addEventListener('click', () => openPopup(editProfilePopup));
+editProfileButton.addEventListener('click', openEditProfilePopup);
 editProfilePopupCloseButton.addEventListener('click', () => closePopup(editProfilePopup));
 editProfileForm.addEventListener('submit', saveProfile);
 
 // Обработчики событий для добавления нового места
 addPlaceButton.addEventListener('click', () => openPopup(addPlacePopup));
-addPlacePopupCloseButton.addEventListener('click', () => closePopup(addPlacePopup));
+addPlacePopupCloseButton.addEventListener('click', closeAddPlacePopup);
 addPlaceForm.addEventListener('submit', addPlaceHandler);
 
 // Обработчик события для закрытия галереи
