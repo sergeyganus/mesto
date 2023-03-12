@@ -23,6 +23,12 @@ const addPlaceForm = addPlacePopup.querySelector('.form');
 const formPlaceName = addPlaceForm.querySelector('.form__input_type_place-name');
 const formPlaceLink = addPlaceForm.querySelector('.form__input_type_place-link');
 
+// Получение окна галереи
+const galleryPopup = document.querySelector('.popup_type_gallery');
+const galleryPopupCloseButton = galleryPopup.querySelector('.popup__close-button');
+const galleryPopupImage = galleryPopup.querySelector('.popup__image');
+const galleryPopupTitle = galleryPopup.querySelector('.popup__title');
+
 // Первоначальный массив мест
 const initialPlaces = [
   {
@@ -136,30 +142,87 @@ function closePopup(popup) {
   popup.classList.remove('popup_opened');
 }
 
+// Обработчик закрытия модального окна кликом по оверлею
+function closePopupByOverlay(evt, popup) {
+  if (evt.target.classList.contains('popup')) {
+    clearFormPlaceData();
+    closePopup(popup);
+  }
+}
+
+// Обработчик закрытия модального окна по нажатию Escape
+function closePopupByEscHandler(evt) {
+  const popupList = Array.from(document.querySelectorAll('.popup'));
+  const openedPopup = popupList.find((popupElement) => popupElement.classList.contains('popup_opened'));
+
+  if ((evt.key === 'Escape') && openedPopup) {
+    if (openedPopup.classList.contains('popup_type_add-place')) {
+      clearFormPlaceData();
+    }
+    closePopup(openedPopup);
+  }
+}
+
+
+// Функция сброса содержимого ошибок полей ввода
+function resetErrorElements(formElement, inputList) {
+  inputList.forEach((inputElement) => {
+    hideInputError(formElement, inputElement);
+  });
+}
+
+// Функция сброса валидации
+function resetValidation(popup) {
+  const formElement = popup.querySelector('.form');
+  const inputList = Array.from(formElement.querySelectorAll('.form__input'));
+  const errorList = Array.from(formElement.querySelectorAll('.form__input-error'));
+  const buttonElement = formElement.querySelector('.form__button');
+
+  resetErrorElements(formElement, inputList);
+  toggleButtonState(inputList, buttonElement);
+}
+
 // Обработчик открытия модального окна редактирования профиля
 function openEditProfilePopup() {
   setFormProfileData();
+  resetValidation(editProfilePopup);
+  document.addEventListener('keydown', closePopupByEscHandler);
   openPopup(editProfilePopup);
+}
+
+// Обработчик закрытия модального окна редактирования профиля
+function closeEditProfilePopup() {
+  document.removeEventListener('keydown', closePopupByEscHandler);
+  closePopup(editProfilePopup);
+}
+
+// Обработчик открытия модального окна добавления места
+function openAddPlacePopup() {
+  resetValidation(addPlacePopup);
+  document.addEventListener('keydown', closePopupByEscHandler);
+  openPopup(addPlacePopup);
 }
 
 // Обработчик закрытия модального окна добавления места
 function closeAddPlacePopup() {
   clearFormPlaceData();
+  document.removeEventListener('keydown', closePopupByEscHandler);
   closePopup(addPlacePopup);
 }
-
-// Получение окна галереи
-const galleryPopup = document.querySelector('.popup_type_gallery');
-const galleryPopupCloseButton = galleryPopup.querySelector('.popup__close-button');
-const galleryPopupImage = galleryPopup.querySelector('.popup__image');
-const galleryPopupTitle = galleryPopup.querySelector('.popup__title');
 
 // Обработчик открытия модального окна галереи
 function openGalleryPopup(evt) {
   const placeImageElem = evt.target;
 
   setGalleryPopupData(placeImageElem);
+  document.addEventListener('keydown', closePopupByEscHandler);
   openPopup(galleryPopup);
+}
+
+// Обработчик закрытия модального окна галереи
+function closeGalleryPopup() {
+  document.removeEventListener('keydown', closePopupByEscHandler);
+  closePopup(galleryPopup);
 }
 
 // Обработчик лайка и отмены лайка месту
@@ -213,16 +276,19 @@ function deletePlace(evt) {
 
 // Обработчики событий для редактирования профиля
 editProfileButton.addEventListener('click', openEditProfilePopup);
-editProfilePopupCloseButton.addEventListener('click', () => closePopup(editProfilePopup));
+editProfilePopupCloseButton.addEventListener('click', closeEditProfilePopup);
+editProfilePopup.addEventListener('click', (evt) => closePopupByOverlay(evt, editProfilePopup));
 editProfileForm.addEventListener('submit', saveProfile);
 
 // Обработчики событий для добавления нового места
-addPlaceButton.addEventListener('click', () => openPopup(addPlacePopup));
+addPlaceButton.addEventListener('click', openAddPlacePopup);
 addPlacePopupCloseButton.addEventListener('click', closeAddPlacePopup);
+addPlacePopup.addEventListener('click', (evt) => closePopupByOverlay(evt, addPlacePopup));
 addPlaceForm.addEventListener('submit', addPlaceHandler);
 
 // Обработчик события для закрытия галереи
-galleryPopupCloseButton.addEventListener('click', () => closePopup(galleryPopup));
+galleryPopupCloseButton.addEventListener('click', closeGalleryPopup);
+galleryPopup.addEventListener('click', (evt) => closePopupByOverlay(evt, galleryPopup));
 
 // Запуск функции добавления мест
 addPlaces(initialPlaces);

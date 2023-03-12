@@ -52,12 +52,20 @@
 
 /* Стили формы - Form */
 @import url(../blocks/form/form.css);
+@import url(../blocks/form/__field/form__field.css);
+@import url(../blocks/form/__field/_type/form__field_type_profile-name.css);
+@import url(../blocks/form/__field/_type/form__field_type_profile-description.css);
+@import url(../blocks/form/__field/_type/form__field_type_place-name.css);
+@import url(../blocks/form/__field/_type/form__field_type_place-link.css);
 @import url(../blocks/form/__input/form__input.css);
 @import url(../blocks/form/__input/_type/form__input_type_profile-name.css);
 @import url(../blocks/form/__input/_type/form__input_type_profile-description.css);
 @import url(../blocks/form/__input/_type/form__input_type_place-name.css);
 @import url(../blocks/form/__input/_type/form__input_type_place-link.css);
+@import url(../blocks/form/__input/_type/form__input_type_error.css);
+@import url(../blocks/form/__input-error/form__input-error.css);
 @import url(../blocks/form/__button/form__button.css);
+@import url(../blocks/form/__button/_inactive/form__button_inactive.css);
 
 /* Стили подвала сайта - Footer */
 @import url(../blocks/footer/footer.css);
