@@ -29,34 +29,6 @@ const galleryPopupCloseButton = galleryPopup.querySelector('.popup__close-button
 const galleryPopupImage = galleryPopup.querySelector('.popup__image');
 const galleryPopupTitle = galleryPopup.querySelector('.popup__title');
 
-// Первоначальный массив мест
-const initialPlaces = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-];
-
 // Получение элемента списка мест и шаблона карточки места
 const placesListElem = document.querySelector('.places__list');
 const placeTemplate = document.querySelector('#place').content;
@@ -120,93 +92,60 @@ function setGalleryPopupData(placeImageElem) {
   galleryPopupTitle.textContent = placeTitleElem.textContent;
 }
 
-// Функция очистки полей формы изменения профиля
-function clearFormProfileData() {
-  formProfileName.value = '';
-  formProfileDescription.value = '';
-}
-
 // Функция очистки полей формы добавления места
 function clearFormPlaceData() {
-  formPlaceName.value = '';
-  formPlaceLink.value = '';
+  addPlaceForm.reset();
 }
 
 // Обработчик открытия модального окна
 function openPopup(popup) {
+  document.addEventListener('keydown', closePopupByEscHandler);
   popup.classList.add('popup_opened');
 }
 
 // Обработчик закрытия модального окна
 function closePopup(popup) {
+  document.removeEventListener('keydown', closePopupByEscHandler);
   popup.classList.remove('popup_opened');
 }
 
 // Обработчик закрытия модального окна кликом по оверлею
 function closePopupByOverlay(evt, popup) {
   if (evt.target.classList.contains('popup')) {
-    clearFormPlaceData();
     closePopup(popup);
   }
 }
 
 // Обработчик закрытия модального окна по нажатию Escape
 function closePopupByEscHandler(evt) {
-  const popupList = Array.from(document.querySelectorAll('.popup'));
-  const openedPopup = popupList.find((popupElement) => popupElement.classList.contains('popup_opened'));
+  const openedPopup = document.querySelector('.popup_opened');
 
   if ((evt.key === 'Escape') && openedPopup) {
-    if (openedPopup.classList.contains('popup_type_add-place')) {
-      clearFormPlaceData();
-    }
     closePopup(openedPopup);
   }
-}
-
-
-// Функция сброса содержимого ошибок полей ввода
-function resetErrorElements(formElement, inputList) {
-  inputList.forEach((inputElement) => {
-    hideInputError(formElement, inputElement);
-  });
-}
-
-// Функция сброса валидации
-function resetValidation(popup) {
-  const formElement = popup.querySelector('.form');
-  const inputList = Array.from(formElement.querySelectorAll('.form__input'));
-  const errorList = Array.from(formElement.querySelectorAll('.form__input-error'));
-  const buttonElement = formElement.querySelector('.form__button');
-
-  resetErrorElements(formElement, inputList);
-  toggleButtonState(inputList, buttonElement);
 }
 
 // Обработчик открытия модального окна редактирования профиля
 function openEditProfilePopup() {
   setFormProfileData();
-  resetValidation(editProfilePopup);
-  document.addEventListener('keydown', closePopupByEscHandler);
+  resetValidation(editProfilePopup, validationConfig);
   openPopup(editProfilePopup);
 }
 
 // Обработчик закрытия модального окна редактирования профиля
 function closeEditProfilePopup() {
-  document.removeEventListener('keydown', closePopupByEscHandler);
   closePopup(editProfilePopup);
 }
 
 // Обработчик открытия модального окна добавления места
 function openAddPlacePopup() {
-  resetValidation(addPlacePopup);
-  document.addEventListener('keydown', closePopupByEscHandler);
+  clearFormPlaceData();
+  resetValidation(addPlacePopup, validationConfig);
   openPopup(addPlacePopup);
 }
 
 // Обработчик закрытия модального окна добавления места
 function closeAddPlacePopup() {
-  clearFormPlaceData();
-  document.removeEventListener('keydown', closePopupByEscHandler);
   closePopup(addPlacePopup);
 }
 
@@ -215,13 +154,11 @@ function openGalleryPopup(evt) {
   const placeImageElem = evt.target;
 
   setGalleryPopupData(placeImageElem);
-  document.addEventListener('keydown', closePopupByEscHandler);
   openPopup(galleryPopup);
 }
 
 // Обработчик закрытия модального окна галереи
 function closeGalleryPopup() {
-  document.removeEventListener('keydown', closePopupByEscHandler);
   closePopup(galleryPopup);
 }
 
@@ -237,9 +174,6 @@ function saveProfile(evt) {
 
   // Запись актуальных значений в профиль
   setProfileData();
-
-  // Очистка полей формы
-  clearFormProfileData();
 
   // Закрытие модального окна
   closePopup(editProfilePopup);
@@ -258,9 +192,6 @@ function addPlaceHandler(evt) {
 
   // Добавление нового места в DOM
   addPlace(newPlace);
-
-  // Очистка полей формы
-  clearFormPlaceData();
 
   // Закрытие модального окна
   closePopup(addPlacePopup);
