@@ -1,5 +1,5 @@
 // Первоначальный массив мест
-const initialPlaces = [
+export const initialCards = [
   {
     name: 'Архыз',
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
@@ -27,7 +27,7 @@ const initialPlaces = [
 ];
 
 // Конфиг для валидации
-const validationConfig = {
+export const validationConfig = {
   formSelector: '.form',
   inputSelector: '.form__input',
   submitButtonSelector: '.form__button',

@@ -1,3 +1,8 @@
+// Импорт необходимых модулей
+import { initialCards, validationConfig } from './constants.js';
+import Card from './Card.js';
+import FormValidator from './FormValidator.js';
+
 // Получение информации о профиле
 const profile = document.querySelector('.profile');
 const profileName = profile.querySelector('.profile__name');
@@ -33,40 +38,32 @@ const galleryPopupTitle = galleryPopup.querySelector('.popup__title');
 const placesListElem = document.querySelector('.places__list');
 const placeTemplate = document.querySelector('#place').content;
 
-// Функция создания места
-function createPlace(place) {
-  const placeElem = placeTemplate.querySelector('.place').cloneNode(true);
-
-  const placeImageElem = placeElem.querySelector('.place__image');
-  placeImageElem.src = place.link;
-  placeImageElem.alt = `На фото ${place.name}`;
-  placeImageElem.title = `На фото ${place.name}`;
-
-  placeElem.querySelector('.place__title').textContent = place.name;
-
-  placeElem.querySelector('.place__favorite-button').addEventListener('click', togglePlaceLike);
-  placeElem.querySelector('.place__delete-button').addEventListener('click', deletePlace);
-  placeImageElem.addEventListener('click', openGalleryPopup);
-
-  return placeElem;
-}
-
-// Функция добавления места
-function addPlace(place, isAppend = false) {
-  const placeElem = createPlace(place);
+// Функция добавления карточки места
+function addCard(cardItem, isAppend = false) {
+  const card = new Card(cardItem, '#place', openGalleryPopup);
+  const cardElement = card.generateCard();
 
   // Добавляем элемент в конец или начало списка мест
   if (isAppend) {
-    placesListElem.append(placeElem);
+    placesListElem.append(cardElement);
   } else {
-    placesListElem.prepend(placeElem);
+    placesListElem.prepend(cardElement);
   }
 }
 
-// Функция добавления мест
-function addPlaces(places) {
-  places.forEach((place) => {
-    addPlace(place, true);
+// Функция добавления карточек мест
+function addCards(cardItems) {
+  cardItems.forEach((cardItem) => {
+    addCard(cardItem, true);
+  });
+}
+
+// Функция включения валидации на всех формах
+function enableValidationOnForms() {
+  const formList = Array.from(document.querySelectorAll(validationConfig.formSelector));
+  formList.forEach((formElement) => {
+    const formValidator = new FormValidator(validationConfig, formElement);
+    formValidator.enableValidation();
   });
 }
 
@@ -83,13 +80,13 @@ function setProfileData() {
 }
 
 // Функция заполнения данных галереи
-function setGalleryPopupData(placeImageElem) {
-  const placeElem = placeImageElem.closest('.place');
-  const placeTitleElem = placeElem.querySelector('.place__title');
-  galleryPopupImage.src = placeImageElem.src;
-  galleryPopupImage.alt = placeImageElem.alt;
-  galleryPopupImage.title = placeImageElem.title;
-  galleryPopupTitle.textContent = placeTitleElem.textContent;
+function setGalleryPopupData(placeImageElement) {
+  const placeElement = placeImageElement.closest('.place');
+  const placeTitleElement = placeElement.querySelector('.place__title');
+  galleryPopupImage.src = placeImageElement.src;
+  galleryPopupImage.alt = placeImageElement.alt;
+  galleryPopupImage.title = placeImageElement.title;
+  galleryPopupTitle.textContent = placeTitleElement.textContent;
 }
 
 // Функция очистки полей формы добавления места
@@ -128,7 +125,11 @@ function closePopupByEscHandler(evt) {
 // Обработчик открытия модального окна редактирования профиля
 function openEditProfilePopup() {
   setFormProfileData();
-  resetValidation(editProfilePopup, validationConfig);
+
+  const formElement = editProfilePopup.querySelector(validationConfig.formSelector);
+  const formValidator = new FormValidator(validationConfig, formElement);
+  formValidator.resetValidation();
+
   openPopup(editProfilePopup);
 }
 
@@ -140,7 +141,11 @@ function closeEditProfilePopup() {
 // Обработчик открытия модального окна добавления места
 function openAddPlacePopup() {
   clearFormPlaceData();
-  resetValidation(addPlacePopup, validationConfig);
+
+  const formElement = addPlacePopup.querySelector(validationConfig.formSelector);
+  const formValidator = new FormValidator(validationConfig, formElement);
+  formValidator.resetValidation();
+
   openPopup(addPlacePopup);
 }
 
@@ -162,11 +167,6 @@ function closeGalleryPopup() {
   closePopup(galleryPopup);
 }
 
-// Обработчик лайка и отмены лайка месту
-function togglePlaceLike(evt) {
-  evt.target.classList.toggle('place__favorite-button_active');
-}
-
 // Обработчик сохранения информации о профиле
 function saveProfile(evt) {
   // Отмена стандартной отправки формы
@@ -180,29 +180,21 @@ function saveProfile(evt) {
 }
 
 // Функция добавления нового места
-function addPlaceHandler(evt) {
+function addCardHandler(evt) {
   // Отмена стандартной отправки формы
   evt.preventDefault();
 
   // Создание нового места
-  const newPlace = {
+  const newCard = {
     name: formPlaceName.value,
     link: formPlaceLink.value
   };
 
   // Добавление нового места в DOM
-  addPlace(newPlace);
+  addCard(newCard);
 
   // Закрытие модального окна
   closePopup(addPlacePopup);
-}
-
-// Функция удаления места
-function deletePlace(evt) {
-  const placeDeleteButton = evt.target;
-
-  const deletedPlaceElem = placeDeleteButton.closest('.place');
-  deletedPlaceElem.remove();
 }
 
 // Обработчики событий для редактирования профиля
@@ -215,12 +207,15 @@ editProfileForm.addEventListener('submit', saveProfile);
 addPlaceButton.addEventListener('click', openAddPlacePopup);
 addPlacePopupCloseButton.addEventListener('click', closeAddPlacePopup);
 addPlacePopup.addEventListener('click', (evt) => closePopupByOverlay(evt, addPlacePopup));
-addPlaceForm.addEventListener('submit', addPlaceHandler);
+addPlaceForm.addEventListener('submit', addCardHandler);
 
 // Обработчик события для закрытия галереи
 galleryPopupCloseButton.addEventListener('click', closeGalleryPopup);
 galleryPopup.addEventListener('click', (evt) => closePopupByOverlay(evt, galleryPopup));
 
 // Запуск функции добавления мест
-addPlaces(initialPlaces);
+addCards(initialCards);
+
+// Добавление валидации всем формам
+enableValidationOnForms();
 
