@@ -18,6 +18,7 @@ const editProfilePopupCloseButton = editProfilePopup.querySelector('.popup__clos
 const editProfileForm = editProfilePopup.querySelector('.form');
 const formProfileName = editProfileForm.querySelector('.form__input_type_profile-name');
 const formProfileDescription = editProfileForm.querySelector('.form__input_type_profile-description');
+const editProfileFormValidator = new FormValidator(validationConfig, editProfileForm);
 
 // Получение модального окна добавления нового места и его элементов
 const addPlacePopup = document.querySelector('.popup_type_add-place');
@@ -27,6 +28,7 @@ const addPlacePopupCloseButton = addPlacePopup.querySelector('.popup__close-butt
 const addPlaceForm = addPlacePopup.querySelector('.form');
 const formPlaceName = addPlaceForm.querySelector('.form__input_type_place-name');
 const formPlaceLink = addPlaceForm.querySelector('.form__input_type_place-link');
+const addPlaceFormValidator = new FormValidator(validationConfig, addPlaceForm);
 
 // Получение окна галереи
 const galleryPopup = document.querySelector('.popup_type_gallery');
@@ -55,15 +57,6 @@ function addCard(cardItem, isAppend = false) {
 function addCards(cardItems) {
   cardItems.forEach((cardItem) => {
     addCard(cardItem, true);
-  });
-}
-
-// Функция включения валидации на всех формах
-function enableValidationOnForms() {
-  const formList = Array.from(document.querySelectorAll(validationConfig.formSelector));
-  formList.forEach((formElement) => {
-    const formValidator = new FormValidator(validationConfig, formElement);
-    formValidator.enableValidation();
   });
 }
 
@@ -115,9 +108,8 @@ function closePopupByOverlay(evt, popup) {
 
 // Обработчик закрытия модального окна по нажатию Escape
 function closePopupByEscHandler(evt) {
-  const openedPopup = document.querySelector('.popup_opened');
-
-  if ((evt.key === 'Escape') && openedPopup) {
+  if (evt.key === 'Escape') {
+    const openedPopup = document.querySelector('.popup_opened');
     closePopup(openedPopup);
   }
 }
@@ -125,11 +117,7 @@ function closePopupByEscHandler(evt) {
 // Обработчик открытия модального окна редактирования профиля
 function openEditProfilePopup() {
   setFormProfileData();
-
-  const formElement = editProfilePopup.querySelector(validationConfig.formSelector);
-  const formValidator = new FormValidator(validationConfig, formElement);
-  formValidator.resetValidation();
-
+  editProfileFormValidator.resetValidation();
   openPopup(editProfilePopup);
 }
 
@@ -141,11 +129,7 @@ function closeEditProfilePopup() {
 // Обработчик открытия модального окна добавления места
 function openAddPlacePopup() {
   clearFormPlaceData();
-
-  const formElement = addPlacePopup.querySelector(validationConfig.formSelector);
-  const formValidator = new FormValidator(validationConfig, formElement);
-  formValidator.resetValidation();
-
+  addPlaceFormValidator.resetValidation();
   openPopup(addPlacePopup);
 }
 
@@ -216,6 +200,7 @@ galleryPopup.addEventListener('click', (evt) => closePopupByOverlay(evt, gallery
 // Запуск функции добавления мест
 addCards(initialCards);
 
-// Добавление валидации всем формам
-enableValidationOnForms();
+// Добавление валидации формам
+editProfileFormValidator.enableValidation();
+addPlaceFormValidator.enableValidation();
 
