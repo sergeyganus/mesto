@@ -1,9 +1,9 @@
 export default class Card {
-  constructor(data, templateSelector, openGalleryPopup) {
+  constructor({ data, templateSelector }, handleCardClick) {
     this._name = data.name;
     this._link = data.link;
     this._templateSelector = templateSelector;
-    this._openGalleryPopup = openGalleryPopup;
+    this._handleCardClick = handleCardClick;
     this._cardSelector = '.place';
   }
 
@@ -26,12 +26,12 @@ export default class Card {
   }
 
   _setEventListeners() {
-    this._element.querySelector('.place__favorite-button').addEventListener('click', () => { this._toggleCardLike(); });
-    this._element.querySelector('.place__delete-button').addEventListener('click', () => { this._deleteCard(); });
-    this._element.querySelector('.place__image').addEventListener('click', (evt) => { this._openGalleryPopup(evt); });
+    this._element.querySelector('.place__favorite-button').addEventListener('click', () => this._toggleCardLike());
+    this._element.querySelector('.place__delete-button').addEventListener('click', () => this._deleteCard());
+    this._element.querySelector('.place__image').addEventListener('click', (evt) => this._handleCardClick(evt));
   }
 
-  generateCard() {
+  generate() {
     // Получаем разметку элемента Card
     this._element = this._getTemplate();
     // Устанавливаем слушателей
