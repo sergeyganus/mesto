@@ -4,21 +4,20 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Место</title>
-    <link rel="stylesheet" href="./pages/index.css">
   </head>
   <body class="body">
     <!-- Главная обёртка - Page -->
     <div class="page">
       <!-- Шапка сайта- Header -->
       <header class="header">
-        <img class="logo" src="./images/logo.svg" alt="Логотип проекта &quot;Место&quot;" title="Логотип проекта &quot;Место&quot;">
+        <img class="logo" src="<%=require('./images/logo.svg')%>" alt="Логотип проекта &quot;Место&quot;" title="Логотип проекта &quot;Место&quot;">
       </header>
       <!-- Основной блок - Main -->
       <main class="main">
         <!-- Секция с профилем пользователя - Profile -->
         <section class="profile">
           <div class="profile__details">
-            <img class="profile__photo" src="./images/profile-photo.png" alt="Фото профиля" title="Фото профиля">
+            <img class="profile__photo" src="<%=require('./images/profile-photo.png')%>" alt="Фото профиля" title="Фото профиля">
             <div class="profile__info">
               <h1 class="profile__name">Жак-Ив Кусто</h1>
               <button class="profile__edit-button" type="button"></button>
@@ -92,7 +91,5 @@
         </div>
       </li>
     </template>
-    <!-- Подключение основного скрипта -->
-    <script type="module" src="./pages/index.js"></script>
   </body>
 </html>

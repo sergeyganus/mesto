@@ -1,3 +1,5 @@
+// Импорт главного файла стилей
+import './index.css';
 // Импорт необходимых элементов, компонентов и обработчиков
 import { editUserButtonElement, addCardButtonElement, initialCardList, editUserFormValidator, addCardFormValidator } from '../utils/constants.js';
 import { openEditUserPopupHandler, openAddCardPopupHandler } from '../utils/utils.js';
