@@ -18,17 +18,23 @@ export default class Card {
   }
 
   _toggleCardLike() {
-    this._element.querySelector('.place__favorite-button').classList.toggle('place__favorite-button_active');
+    this._buttonLike.classList.toggle('place__favorite-button_active');
   }
 
   _deleteCard() {
     this._element.remove();
+    this._element = null;
   }
 
   _setEventListeners() {
-    this._element.querySelector('.place__favorite-button').addEventListener('click', () => this._toggleCardLike());
-    this._element.querySelector('.place__delete-button').addEventListener('click', () => this._deleteCard());
-    this._element.querySelector('.place__image').addEventListener('click', (evt) => this._handleCardClick(evt));
+    this._buttonLike = this._element.querySelector('.place__favorite-button');
+    this._buttonDelete = this._element.querySelector('.place__delete-button');
+    this._cardTitle = this._element.querySelector('.place__title');
+    this._cardImage = this._element.querySelector('.place__image');
+
+    this._buttonLike.addEventListener('click', () => this._toggleCardLike());
+    this._buttonDelete.addEventListener('click', () => this._deleteCard());
+    this._cardImage.addEventListener('click', (evt) => this._handleCardClick(evt));
   }
 
   generate() {
@@ -37,15 +43,13 @@ export default class Card {
     // Устанавливаем слушателей
     this._setEventListeners();
 
-    // Получаем изображение элемента Card
-    const placeImageElement = this._element.querySelector('.place__image');
     // Заполняем необходимые поля
-    placeImageElement.src = this._link;
-    placeImageElement.alt = `На фото ${this._name}`;
-    placeImageElement.title = `На фото ${this._name}`;
+    this._cardImage.src = this._link;
+    this._cardImage.alt = `На фото ${this._name}`;
+    this._cardImage.title = `На фото ${this._name}`;
 
     // Заполняем название элемента Card
-    this._element.querySelector('.place__title').textContent = this._name;
+    this._cardTitle.textContent = this._name;
 
     // Возвращаем заполненный элемент Card с установленными слушателями
     return this._element;

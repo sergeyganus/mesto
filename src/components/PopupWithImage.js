@@ -8,18 +8,15 @@ export default class PopupWithImage extends Popup {
     super._setEventListeners();
   }
 
-  _setData(placeImageElement) {
-    const placeElement = placeImageElement.closest('.place');
-    const placeTitleElement = placeElement.querySelector('.place__title');
-    this._image.src = placeImageElement.src;
-    this._image.alt = placeImageElement.alt;
-    this._image.title = placeImageElement.title;
-    this._title.textContent = placeTitleElement.textContent;
+  _setData(cardItem) {
+    this._title.textContent = cardItem.title;
+    this._image.src = cardItem.src;
+    this._image.alt = cardItem.alt;
+    this._image.title = cardItem.imageTitle;
   }
 
-  open(evt) {
-    const placeImageElement = evt.target;
-    this._setData(placeImageElement);
+  open(cardItem) {
+    this._setData(cardItem);
     super.open();
   }
 }

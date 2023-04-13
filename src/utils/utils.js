@@ -1,16 +1,14 @@
 // Импорт необходимых элементов и компонентов
+import { formUserNameElement, formUserDescriptionElement, applicationConfig } from './constants.js';
 import {
-  formUserNameElement,
-  formUserDescriptionElement,
-  formCardNameElement,
-  formCardLinkElement,
   editUserPopup,
   addCardPopup,
-  userInfo,
+  galleryPopup,
   currentCardList,
+  userInfo,
   editUserFormValidator,
   addCardFormValidator
-} from './constants.js';
+} from '../pages/index.js';
 
 // Функция заполнения полей формы из профиля
 const setUserFormData = () => {
@@ -19,10 +17,22 @@ const setUserFormData = () => {
   formUserDescriptionElement.value = userData['userDescription'];
 }
 
+// Функция получения информации о карточке при клике на изображение
+const getCardInfo = (cardImageElement) => {
+  const cardElement = cardImageElement.closest(applicationConfig.cardSelector);
+  const cardTitleElement = cardElement.querySelector(applicationConfig.cardTitleSelector);
+  const cardItem = {
+    title: cardTitleElement.textContent,
+    src: cardImageElement.src,
+    alt: cardImageElement.alt,
+    imageTitle: cardImageElement.title
+  };
+
+  return cardItem;
+}
+
 // Обработчик сохранения информации о профиле
-export const saveUserHandler = (evt) => {
-  evt.preventDefault();
-  const formValues = editUserPopup.getValues();
+export const saveUserHandler = (formValues) => {
   userInfo.setUserInfo({
     userName: formValues['profile-name'],
     userDescription: formValues['profile-description']
@@ -31,11 +41,10 @@ export const saveUserHandler = (evt) => {
 }
 
 // Функция добавления новой карточки
-export const addCardHandler = (evt) => {
-  evt.preventDefault();
+export const addCardHandler = (formValues) => {
   const cardItem = {
-    name: formCardNameElement.value,
-    link: formCardLinkElement.value
+    name: formValues['place-name'],
+    link: formValues['place-link']
   };
   currentCardList.renderItem(cardItem);
   addCardPopup.close();
@@ -52,4 +61,11 @@ export const openEditUserPopupHandler = () => {
 export const openAddCardPopupHandler = () => {
   addCardFormValidator.resetValidation();
   addCardPopup.open();
+}
+
+// Обработчик открытия модального окна галереи изображений
+export const openGalleryPopupHandler = (evt) => {
+  const cardImageElement = evt.target;
+  const cardItem = getCardInfo(cardImageElement);
+  galleryPopup.open(cardItem);
 }
