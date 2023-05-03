@@ -5,19 +5,20 @@ export default class Api {
     this._headers = options.headers;
   }
 
+  _checkResponse(res) {
+    if (res.ok) {
+      return res.json();
+    }
+
+    return Promise.reject(`Ошибка при запросе: код ошибки (${res.status}), сообщение "${res.statusText}"`);
+  }
+
   getUserInfo() {
     return fetch(`${this._address}/${this._cohortId}/users/me`, {
       method: 'GET',
       headers: this._headers
     })
-    .then(res => {
-      if (res.ok) {
-        return res.json();
-      }
-
-      return Promise.reject(`Ошибка при запросе: код ошибки (${res.status}), сообщение "${res.statusText}"`);
-    })
-    .catch(err => console.log(err));
+    .then(this._checkResponse);
   }
 
   setUserInfo({ userName, userDescription }) {
@@ -29,14 +30,7 @@ export default class Api {
         about: userDescription
       })
     })
-    .then(res => {
-      if (res.ok) {
-        return res.json();
-      }
-
-      return Promise.reject(`Ошибка при запросе: код ошибки (${res.status}), сообщение "${res.statusText}"`);
-    })
-    .catch(err => console.log(err));
+    .then(this._checkResponse);
   }
 
   getCards() {
@@ -44,14 +38,7 @@ export default class Api {
       method: 'GET',
       headers: this._headers
     })
-    .then(res => {
-      if (res.ok) {
-        return res.json();
-      }
-
-      return Promise.reject(`Ошибка при запросе: код ошибки (${res.status}), сообщение "${res.statusText}"`);
-    })
-    .catch(err => console.log(err));
+    .then(this._checkResponse);
   }
 
   addCard(cardItem) {
@@ -63,14 +50,7 @@ export default class Api {
         link: cardItem.link
       })
     })
-    .then(res => {
-      if (res.ok) {
-        return res.json();
-      }
-
-      return Promise.reject(`Ошибка при запросе: код ошибки (${res.status}), сообщение "${res.statusText}"`);
-    })
-    .catch(err => console.log(err));
+    .then(this._checkResponse);
   }
 
   deleteCard(cardId) {
@@ -78,14 +58,7 @@ export default class Api {
       method: 'DELETE',
       headers: this._headers
     })
-    .then(res => {
-      if (res.ok) {
-        return res.json();
-      }
-
-      return Promise.reject(`Ошибка при запросе: код ошибки (${res.status}), сообщение "${res.statusText}"`);
-    })
-    .catch(err => console.log(err));
+    .then(this._checkResponse);
   }
 
   addLike(cardId) {
@@ -93,14 +66,7 @@ export default class Api {
       method: 'PUT',
       headers: this._headers
     })
-    .then(res => {
-      if (res.ok) {
-        return res.json();
-      }
-
-      return Promise.reject(`Ошибка при запросе: код ошибки (${res.status}), сообщение "${res.statusText}"`);
-    })
-    .catch(err => console.log(err));
+    .then(this._checkResponse);
   }
 
   deleteLike(cardId) {
@@ -108,17 +74,10 @@ export default class Api {
       method: 'DELETE',
       headers: this._headers
     })
-    .then(res => {
-      if (res.ok) {
-        return res.json();
-      }
-
-      return Promise.reject(`Ошибка при запросе: код ошибки (${res.status}), сообщение "${res.statusText}"`);
-    })
-    .catch(err => console.log(err));
+    .then(this._checkResponse);
   }
 
-  updateProfilePhoto(avatar) {
+  updateUserPhoto(avatar) {
     return fetch(`${this._address}/${this._cohortId}/users/me/avatar`, {
       method: 'PATCH',
       headers: this._headers,
@@ -126,13 +85,6 @@ export default class Api {
         avatar: avatar
       })
     })
-    .then(res => {
-      if (res.ok) {
-        return res.json();
-      }
-
-      return Promise.reject(`Ошибка при запросе: код ошибки (${res.status}), сообщение "${res.statusText}"`);
-    })
-    .catch(err => console.log(err));
+    .then(this._checkResponse);
   }
 }

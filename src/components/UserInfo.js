@@ -1,7 +1,5 @@
-import { api } from "../pages/index.js";
-
 export default class UserInfo {
-  constructor(user, { userNameSelector, userDescriptionSelector, userProfilePhotoSelector }) {
+  constructor(user, { userNameSelector, userDescriptionSelector, userProfilePhotoSelector }, { handleUserInfo, handleUserPhoto }) {
     this._id = user._id;
     this._name = user.name;
     this._description = user.about;
@@ -9,6 +7,8 @@ export default class UserInfo {
     this._userNameElement = document.querySelector(userNameSelector);
     this._userDescriptionElement = document.querySelector(userDescriptionSelector);
     this._userProfilePhotoElement = document.querySelector(userProfilePhotoSelector);
+    this._handleUserInfo = handleUserInfo;
+    this._handleUserPhoto = handleUserPhoto;
   }
 
   getUserId() {
@@ -29,9 +29,7 @@ export default class UserInfo {
     this._userNameElement.textContent = userName;
     this._userDescriptionElement.textContent = userDescription;
 
-    if (this._userProfilePhotoElement.src !== userProfilePhoto) {
-      this._userProfilePhotoElement.src = userProfilePhoto;
-    }
+    this.setUserPhoto(userProfilePhoto);
   }
 
   setUserPhoto(userProfilePhoto = this._profilePhoto) {
@@ -41,10 +39,11 @@ export default class UserInfo {
   }
 
   sendUserInfo({ userName = this._name, userDescription = this._description }) {
-    return api.setUserInfo({ userName, userDescription });
+    return this._handleUserInfo({ userName, userDescription });
   }
 
   updateUserPhoto(userPhoto) {
-    return api.updateProfilePhoto(userPhoto);
+    this._profilePhoto = userPhoto;
+    return this._handleUserPhoto(userPhoto);
   }
 }

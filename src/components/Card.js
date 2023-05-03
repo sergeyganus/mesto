@@ -4,6 +4,8 @@ export default class Card {
     this._userId = userId;
     this._ownerId = data.owner._id;
     this._isUserCard = (this._ownerId === this._userId);
+    this._likes = data.likes;
+    this._isLiked = this._isSetLike();
     this._name = data.name;
     this._link = data.link;
     this._likeCount = data.likes.length;
@@ -13,6 +15,33 @@ export default class Card {
     this._handleAddLikeClick = handleAddLikeClick;
     this._handleDeleteLikeClick = handleDeleteLikeClick;
     this._cardSelector = '.place';
+  }
+
+  _isSetLike() {
+    let isLiked = false;
+    this._likes.some(currentUser => {
+      if (currentUser._id === this._userId) {
+        isLiked = true;
+      }
+    });
+
+    return isLiked;
+  }
+
+  _setLike(data) {
+    this._likeCount = data.likes.length;
+    this._cardLikeCounter.textContent = this._likeCount;
+    this._buttonLike.classList.add('place__favorite-button_active');
+  }
+
+  _deleteLike(data) {
+    this._likeCount = data.likes.length;
+    this._cardLikeCounter.textContent = this._likeCount;
+    this._buttonLike.classList.remove('place__favorite-button_active');
+  }
+
+  _printError(err) {
+    console.log(err);
   }
 
   _getTemplate() {
@@ -27,18 +56,18 @@ export default class Card {
 
   _toggleCardLike() {
     if (!this._buttonLike.classList.contains('place__favorite-button_active')) {
-      this._handleAddLikeClick(this._id).then(data => {
-        this._likeCount = data.likes.length;
-        this._cardLikeCounter.textContent = this._likeCount;
-      });
+      this._handleAddLikeClick(this._id)
+        .then(data => {
+          this._setLike(data);
+        })
+        .catch(this._printError);
     } else {
-      this._handleDeleteLikeClick(this._id).then(data => {
-        this._likeCount = data.likes.length;
-        this._cardLikeCounter.textContent = this._likeCount;
-      });
+      this._handleDeleteLikeClick(this._id)
+        .then(data => {
+          this._deleteLike(data);
+        })
+        .catch(this._printError);
     }
-
-    this._buttonLike.classList.toggle('place__favorite-button_active');
   }
 
   _deleteCard() {
@@ -59,6 +88,9 @@ export default class Card {
       this._buttonDelete.addEventListener('click', () => {
         this._handleDeleteClick(this._id, this._deleteCard.bind(this));
       });
+    }
+    if (this._isLiked) {
+      this._buttonLike.classList.add('place__favorite-button_active');
     }
 
     this._cardImage.addEventListener('click', (evt) => this._handleCardClick(evt));
