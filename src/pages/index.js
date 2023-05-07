@@ -29,6 +29,11 @@ import {
   apiSettings
 } from '../utils/constants.js';
 
+// Впомогательная функция фиксации ошибок
+const printError = (err) => {
+  console.log(err);
+}
+
 // Функция заполнения полей формы из профиля
 const setUserFormData = () => {
   const userData = userInfo.getUserInfo();
@@ -36,6 +41,7 @@ const setUserFormData = () => {
   formUserDescriptionElement.value = userData['userDescription'];
 }
 
+// Функция установки нового фото профиля
 const setUserPhotoFormData = () => {
   const userData = userInfo.getUserInfo();
   formUserPhotoElement.value = userData['userPhoto']
@@ -55,37 +61,39 @@ const getCardInfo = (cardImageElement) => {
   return cardItem;
 }
 
-// Обработчик сохранения информации о профиле
+// Обработчик сохранения информации в профиле
 export const saveUserHandler = (formValues) => {
   const userData = {
     userName: formValues['profile-name'],
     userDescription: formValues['profile-description']
   };
 
-  userInfo.setUserInfo(userData);
   saveUserButtonElement.textContent = 'Сохранение...';
   userInfo.sendUserInfo(userData)
     .then(res => {
+      userInfo.setUserInfo(userData);
       editUserPopup.close();
     })
     .catch(err => {
-      console.log(err);
+      printError(err);
     })
     .finally(() => {
       saveUserButtonElement.textContent = 'Сохранить';
     });
 }
 
+// Обработчик изменения фото профиля
 export const saveUserPhotoHandler = (formValues) => {
   const userPhoto = formValues['profile-photo'];
-  userInfo.setUserPhoto(userPhoto);
+
   saveUserPhotoButtonElement.textContent = 'Сохранение...';
   userInfo.updateUserPhoto(userPhoto)
     .then(res => {
+      userInfo.setUserPhoto(userPhoto);
       editUserPhotoPopup.close();
     })
     .catch(err => {
-      console.log(err);
+      printError(err);
     })
     .finally(() => {
       saveUserPhotoButtonElement.textContent = 'Сохранить';
@@ -99,6 +107,7 @@ export const addCardHandler = (formValues) => {
     link: formValues['place-link']
   };
   const addCardPromise = api.addCard(cardItem);
+
   addFormCardButtonElement.textContent = 'Создание...';
   addCardPromise
     .then(cardItem => {
@@ -106,7 +115,7 @@ export const addCardHandler = (formValues) => {
       addCardPopup.close();
     })
     .catch(err => {
-      console.log(err);
+      printError(err);
     })
     .finally(() => {
       addFormCardButtonElement.textContent = 'Создать';
@@ -115,7 +124,7 @@ export const addCardHandler = (formValues) => {
 
 // Функция удаления карточки
 export const deleteCardByApiHandler = (cardId) => {
- return api.deleteCard(cardId);
+  return api.deleteCard(cardId);
 }
 
 // Обработчик открытия модального окна редактирования профиля
@@ -178,8 +187,8 @@ export const api = new Api({
 export let userInfo;
 export let currentCardList;
 
+// Создание промиса для получения данных о пользователе
 const getUserInfoPromise = api.getUserInfo();
-
 getUserInfoPromise.then(userData => {
   userInfo = new UserInfo(
     userData,
@@ -196,6 +205,7 @@ getUserInfoPromise.then(userData => {
 
   userInfo.setUserInfo(userData);
 
+  // Создание промиса для получения карточек
   const getCardsPromise = api.getCards();
   getCardsPromise.then(currentCards => {
     // Экземпляр для работы со списком карточек
@@ -203,10 +213,10 @@ getUserInfoPromise.then(userData => {
       items: currentCards,
       renderer: (cardItem, addToEnd = false) => {
         const card = new Card({
-            data: cardItem,
-            userId: userInfo.getUserId(),
-            templateSelector: applicationConfig.cardTemplateSelector
-          },
+          data: cardItem,
+          userId: userInfo.getUserId(),
+          templateSelector: applicationConfig.cardTemplateSelector
+        },
           {
             handleCardClick: openGalleryPopupHandler,
             handleDeleteClick: openGetConfirmationPopup,

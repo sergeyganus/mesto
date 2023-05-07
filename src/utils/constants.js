@@ -41,10 +41,10 @@ export const validationConfig = {
 // Настройки API для общения с сервером
 export const apiSettings = {
   baseUrl: 'https://mesto.nomoreparties.co/v1',
-  cohortId: 'cohort-64',
-  authorizationToken: '018b1696-43c1-4150-b625-13c417c9334e',
+  cohortId: 'cohort-65',
+  authorizationToken: '620e33d0-cba9-4dd2-8dd8-35730626663b',
   headers: {
-    authorization: '018b1696-43c1-4150-b625-13c417c9334e',
+    authorization: '620e33d0-cba9-4dd2-8dd8-35730626663b',
     'Content-Type': 'application/json'
   }
 };

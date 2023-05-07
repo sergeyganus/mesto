@@ -29,12 +29,14 @@ export default class Card {
   }
 
   _setLike(data) {
+    this._isLiked = true;
     this._likeCount = data.likes.length;
     this._cardLikeCounter.textContent = this._likeCount;
     this._buttonLike.classList.add('place__favorite-button_active');
   }
 
   _deleteLike(data) {
+    this._isLiked = false;
     this._likeCount = data.likes.length;
     this._cardLikeCounter.textContent = this._likeCount;
     this._buttonLike.classList.remove('place__favorite-button_active');
@@ -55,7 +57,7 @@ export default class Card {
   }
 
   _toggleCardLike() {
-    if (!this._buttonLike.classList.contains('place__favorite-button_active')) {
+    if (!this._isLiked) {
       this._handleAddLikeClick(this._id)
         .then(data => {
           this._setLike(data);
